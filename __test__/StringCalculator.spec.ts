@@ -27,4 +27,10 @@ describe('String calculator should', () => {
     const calculator = new StringCalculator();
     expect(calculator.sum('3\n4,8\n3')).toBe(18);
   });
+
+  it('allow different delimiters when string starts with //', () => {
+    const calculator = new StringCalculator();
+    expect(calculator.sum('//|\n3|4|8|3')).toBe(18);
+    expect(calculator.sum('//ç\n3ç4ç8ç3')).toBe(18);
+  });
 });

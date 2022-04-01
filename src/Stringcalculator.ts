@@ -1,9 +1,15 @@
 export class StringCalculator {
   public sum(delimitedNumbersString: string): number {
-    if (delimitedNumbersString == '') {
+    if (delimitedNumbersString === '') {
       return 0;
     }
-    const delimiter = /[,\n]/;
+    let delimiters = '[,\\n]';
+    if (delimitedNumbersString.startsWith('//')) {
+      const end = delimitedNumbersString.indexOf('\n');
+      delimiters = delimitedNumbersString.substring(2, end);
+      delimitedNumbersString = delimitedNumbersString.substring(end + 1);
+    }
+    const delimiter = new RegExp('/${delimiters}/');
     const numbers = delimitedNumbersString
       .split(delimiter)
       .map(numberAsString => Number.parseInt(numberAsString));
