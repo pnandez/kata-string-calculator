@@ -8,3 +8,4 @@ This boilerplate include:
 - 📙 Babel 7
 - ✅ Jest 24
 - 💅 Prettier & TSLint
+# kata-string-calculator
