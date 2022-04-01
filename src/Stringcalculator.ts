@@ -3,9 +3,12 @@ export class StringCalculator {
     if (delimitedNumbersString == '') {
       return 0;
     }
-    if (isNaN(Number.parseInt(delimitedNumbersString))) {
+    const numbers = delimitedNumbersString
+      .split(',')
+      .map(numberAsString => Number.parseInt(numberAsString));
+    if (numbers.some(number => isNaN(number))) {
       throw new Error('invalid string, must contain only numbers');
     }
-    return Number.parseInt(delimitedNumbersString);
+    return numbers.reduce((a, b) => a + b, 0);
   }
 }
