@@ -1,16 +1,5 @@
-/**
- * Main Class
- */
-export class Main {
-  public static COMMANDS = 'Hello World';
-
-  public param: string;
-
-  constructor(param: string) {
-    this.param = param;
-  }
-
-  public getParam(): string {
-    return this.param;
+export class StringCalculator {
+  public sum(delimitedNumbersString: string): number {
+    return 1;
   }
 }
