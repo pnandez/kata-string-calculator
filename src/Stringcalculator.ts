@@ -3,8 +3,9 @@ export class StringCalculator {
     if (delimitedNumbersString == '') {
       return 0;
     }
+    const delimiter = /[,\n]/;
     const numbers = delimitedNumbersString
-      .split(',')
+      .split(delimiter)
       .map(numberAsString => Number.parseInt(numberAsString));
     if (numbers.some(number => isNaN(number))) {
       throw new Error('invalid string, must contain only numbers');

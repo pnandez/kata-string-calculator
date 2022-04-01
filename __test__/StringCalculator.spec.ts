@@ -22,4 +22,9 @@ describe('String calculator should', () => {
     expect(calculator.sum('1,2')).toBe(3);
     expect(calculator.sum('3,4,8,3')).toBe(18);
   });
+
+  it('allow separating by commas and newlines', () => {
+    const calculator = new StringCalculator();
+    expect(calculator.sum('3\n4,8\n3')).toBe(18);
+  });
 });
