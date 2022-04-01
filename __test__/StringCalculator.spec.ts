@@ -17,9 +17,9 @@ describe('String calculator should', () => {
     expect(() => calculator.sum('abd')).toThrow(/invalid/);
   });
 
-  it('add two numbers separated by commas', () => {
+  it('add several numbers separated by commas', () => {
     const calculator = new StringCalculator();
     expect(calculator.sum('1,2')).toBe(3);
-    expect(calculator.sum('3,4')).toBe(7);
+    expect(calculator.sum('3,4,8,3')).toBe(18);
   });
 });
