@@ -11,4 +11,9 @@ describe('String calculator should', () => {
     const calculator = new StringCalculator();
     expect(calculator.sum('')).toBe(0);
   });
+
+  it("throw if the input isn't a number", () => {
+    const calculator = new StringCalculator();
+    expect(() => calculator.sum('abd')).toThrow(/invalid/);
+  });
 });
