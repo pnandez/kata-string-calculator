@@ -12,7 +12,15 @@ export class StringCalculator {
       rawDelimiters = this.escapeRegularExpressionCharacters(rawDelimiters);
       delimitedNumbersString = delimitedNumbersString.substring(end + 1);
     }
-    const delimiter = new RegExp(`[${rawDelimiters}]`);
+    let delimiter = new RegExp(`[${rawDelimiters}]`, 'g');
+
+    if (rawDelimiters.includes('[')) {
+      const delimiters: string[] = rawDelimiters
+        .split('[')
+        .map(element => element.replace(']', ''));
+      delimiter = new RegExp(`[${delimiters.join('')}]`);
+      console.log(delimiter);
+    }
     const numbers = delimitedNumbersString
       .split(delimiter)
       .map(numberAsString => Number.parseInt(numberAsString));
@@ -29,16 +37,6 @@ export class StringCalculator {
   }
 
   private escapeRegularExpressionCharacters(rawDelimiters: string): string {
-    const charactersToEscapeInRawDelimiters = rawDelimiters
-      .split('')
-      .filter(c => regularExpressionEscapedCharacters.includes(c));
-    for (let i = 0; i < charactersToEscapeInRawDelimiters.length; i++) {
-      const index = rawDelimiters.indexOf(charactersToEscapeInRawDelimiters[i]);
-      rawDelimiters =
-        rawDelimiters.substring(0, index) +
-        '\\' +
-        rawDelimiters.substring(index, rawDelimiters.length);
-    }
-    return rawDelimiters;
+    return rawDelimiters.replace(/[.*+\-?^${}()|\\]/g, '\\$&');
   }
 }
