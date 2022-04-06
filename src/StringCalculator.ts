@@ -1,5 +1,5 @@
 export class StringCalculator {
   sum(expression: string): number {
-    return parseInt(expression); 
+    return parseInt(expression);
   }
 }
