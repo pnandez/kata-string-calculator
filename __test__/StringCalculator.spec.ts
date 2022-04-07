@@ -10,6 +10,7 @@ import { StringCalculator } from '../src/Calculator';
  * calculator.calculate('2,3,a,4') =>9
  * check calculator with escaped characters
  * calculator.calculate('1,3,5,-1,2,-5') => Exception negative numbers not allowed: -1, -5
+ * calculator.calculate('1000,2000,2') => 2
  */
 
 describe('String calculator should ', () => {
@@ -61,5 +62,9 @@ describe('String calculator should ', () => {
     expect(() => {
       calculator.calculate('1,2,-3,4,-5');
     }).toThrow();
+  });
+
+  it('ignore numbers over 1000', () => {
+    expect(calculator.calculate('1000,2000,4000,2')).toBe(2);
   });
 });

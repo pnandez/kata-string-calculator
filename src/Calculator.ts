@@ -3,7 +3,6 @@ export class StringCalculator {
     const numbers: string[] = this.extractNumbers(expression);
     const copyOfNumbers = [...numbers];
     const negativeNumbers = this.checkForNegatives(copyOfNumbers);
-    console.log(negativeNumbers);
     if (negativeNumbers.length > 0) {
       throw new Error(
         'Negative numbers are not allowed ' + negativeNumbers.join(', '),
@@ -14,13 +13,10 @@ export class StringCalculator {
 
   private checkForNegatives(numbers: string[]): string[] {
     if (numbers.length === 0) {
-      console.log('BASE CASE');
       return [];
     }
     const lastNumber: string = numbers.pop();
-    console.log(lastNumber);
     if (parseInt(lastNumber) < 0) {
-      console.log('INSIDE');
       return [lastNumber].concat(this.checkForNegatives(numbers));
     }
     return [].concat(this.checkForNegatives(numbers));
