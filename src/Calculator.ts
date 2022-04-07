@@ -1,7 +1,6 @@
 export class StringCalculator {
   calculate(expression: string): number {
     const numbers: string[] = this.extractNumbers(expression);
-    console.log(expression + ' => ' + `[${numbers}]`);
     return this.sum(numbers);
   }
 
@@ -14,19 +13,22 @@ export class StringCalculator {
     if (expression.startsWith('//')) {
       rawDelimiter = expression.slice(2, expression.indexOf('\n'));
       delimiters = new RegExp(`[${rawDelimiter}]`, 'g');
-      console.log(delimiters);
       expression = expression.substring(
         expression.indexOf('\n') + 1,
         expression.length,
       );
     }
-    console.log(expression);
     return expression.split(delimiters);
   }
 
   private sum(numbers: string[]): number {
     if (numbers.length === 0) {
       return 0;
+    }
+    console.log(numbers);
+    if (isNaN(parseInt(numbers[numbers.length - 1]))) {
+      numbers.pop();
+      return this.sum(numbers);
     }
     if (numbers.length === 1) {
       return parseInt(numbers[0]);
