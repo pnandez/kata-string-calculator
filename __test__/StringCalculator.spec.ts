@@ -11,6 +11,7 @@ import { StringCalculator } from '../src/Calculator';
  * check calculator with escaped characters
  * calculator.calculate('1,3,5,-1,2,-5') => Exception negative numbers not allowed: -1, -5
  * calculator.calculate('1000,2000,2') => 2
+ * calculator.calculate('//[çç]\n1çç2çç3') => 6
  */
 
 describe('String calculator should ', () => {
@@ -65,6 +66,17 @@ describe('String calculator should ', () => {
   });
 
   it('ignore numbers over 1000', () => {
-    expect(calculator.calculate('1000,2000,4000,2')).toBe(2);
+    expect(calculator.calculate('1001,2000,4000,2')).toBe(2);
+  });
+
+  it('accept delimiters with more than one character', () => {
+    expect(calculator.calculate('//[çç]\n1çç2çç3')).toBe(6);
+    expect(calculator.calculate('//[||||||]\n1|||||2|||||3')).toBe(6);
+    expect(calculator.calculate('//[--]\n1--2--3')).toBe(6);
+  });
+
+  it('accept more than one delimiter', () => {
+    expect(calculator.calculate('//[ç][,]\n1ç2,3')).toBe(6);
+    expect(calculator.calculate('//[-][*]\n1*5-3')).toBe(9);
   });
 });

@@ -26,17 +26,34 @@ export class StringCalculator {
     if (expression.length === 0) {
       return [];
     }
-    let delimiters = /[,\n]/;
-    let rawDelimiter = ',';
+    let delimeters = /[,\n]/;
+    let rawdelimeter = ',';
     if (expression.startsWith('//')) {
-      rawDelimiter = expression.slice(2, expression.indexOf('\n'));
-      delimiters = new RegExp(`[${rawDelimiter}]`, 'g');
+      rawdelimeter = expression.slice(2, expression.indexOf('\n'));
+      delimeters = new RegExp(`[${this.parsedelimeters(rawdelimeter)}]`, 'g');
+      console.log(delimeters);
       expression = expression.substring(
         expression.indexOf('\n') + 1,
         expression.length,
       );
     }
-    return expression.split(delimiters);
+    return expression.split(delimeters);
+  }
+
+  private parsedelimeters(rawdelimeterExpression: string): string {
+    if (rawdelimeterExpression.length === 1) {
+      return rawdelimeterExpression;
+    }
+    const delimeters: string[] = rawdelimeterExpression.match(/\[.*?\]/g);
+    return this.parseMultipleDelimeters(delimeters);
+  }
+
+  private parseMultipleDelimeters(delimeters: string[]): string {
+    if (delimeters.length === 1) {
+      return delimeters[0].slice(1, -1);
+    }
+    const parseddelimeter = delimeters.shift().slice(1, -1);
+    return parseddelimeter + '|' + this.parseMultipleDelimeters(delimeters);
   }
 
   private sum(numbers: string[]): number {
@@ -46,9 +63,6 @@ export class StringCalculator {
     if (isNaN(parseInt(numbers[numbers.length - 1]))) {
       numbers.pop();
       return this.sum(numbers);
-    }
-    if (numbers.length === 1) {
-      return parseInt(numbers[0]);
     }
     const lastElement: string = numbers.pop();
     if (parseInt(lastElement) > 1000) {
