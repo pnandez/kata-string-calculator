@@ -1,28 +1,29 @@
 export class StringCalculator {
   calculate(expression: string): number {
-    let numbers: string[] = this.extractNumbers(expression);
-    numbers = this.cleanNumbersArray(numbers);
-    const negativeNumbers: string[] = this.checkForNegatives(numbers);
+    const numbers: string[] = this.extractNumbers(expression);
+    const copyOfNumbers = [...numbers];
+    const negativeNumbers = this.checkForNegatives(copyOfNumbers);
+    console.log(negativeNumbers);
+    if (negativeNumbers.length > 0) {
+      throw new Error(
+        'Negative numbers are not allowed ' + negativeNumbers.join(', '),
+      );
+    }
     return this.sum(numbers);
   }
 
   private checkForNegatives(numbers: string[]): string[] {
-    if (isNaN(parseInt(numbers[numbers.length - 1]))) {
-      numbers.pop();
-    }
-    return [];
-  }
-
-  private cleanNumbersArray(numbers: string[]): string[] {
     if (numbers.length === 0) {
+      console.log('BASE CASE');
       return [];
     }
-    if (isNaN(parseInt(numbers[numbers.length - 1]))) {
-      numbers.pop();
-      return this.cleanNumbersArray(numbers);
+    const lastNumber: string = numbers.pop();
+    console.log(lastNumber);
+    if (parseInt(lastNumber) < 0) {
+      console.log('INSIDE');
+      return [lastNumber].concat(this.checkForNegatives(numbers));
     }
-    const lastElement: string = numbers.pop();
-    return this.cleanNumbersArray(numbers).push(lastElement);
+    return [].concat(this.checkForNegatives(numbers));
   }
 
   private extractNumbers(expression: string): string[] {
@@ -46,7 +47,6 @@ export class StringCalculator {
     if (numbers.length === 0) {
       return 0;
     }
-    console.log(numbers);
     if (isNaN(parseInt(numbers[numbers.length - 1]))) {
       numbers.pop();
       return this.sum(numbers);

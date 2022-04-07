@@ -53,6 +53,7 @@ describe('String calculator should ', () => {
 
   it('accept characters that need to be escaped as delimiters', () => {
     expect(calculator.calculate('//*\n2*3')).toBe(5);
+    expect(calculator.calculate('//(\n2(3(4')).toBe(9);
     expect(calculator.calculate('//|\n2|3|5|3')).toBe(13);
   });
 
