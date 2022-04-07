@@ -51,6 +51,9 @@ export class StringCalculator {
       return parseInt(numbers[0]);
     }
     const lastElement: string = numbers.pop();
+    if (parseInt(lastElement) > 1000) {
+      return this.sum(numbers);
+    }
     return this.sum(numbers) + parseInt(lastElement);
   }
 }
