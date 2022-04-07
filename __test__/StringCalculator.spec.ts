@@ -44,4 +44,8 @@ describe('String calculator should ', () => {
     expect(calculator.calculate('//;\n2;3')).toBe(5);
     expect(calculator.calculate('//ç\n2ç3ç5ç3')).toBe(13);
   });
+
+  it('ignore letters', () => {
+    expect(calculator.calculate('2,3,a,4')).toBe(9);
+  });
 });
