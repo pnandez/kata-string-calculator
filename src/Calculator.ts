@@ -1,7 +1,28 @@
 export class StringCalculator {
   calculate(expression: string): number {
-    const numbers: string[] = this.extractNumbers(expression);
+    let numbers: string[] = this.extractNumbers(expression);
+    numbers = this.cleanNumbersArray(numbers);
+    const negativeNumbers: string[] = this.checkForNegatives(numbers);
     return this.sum(numbers);
+  }
+
+  private checkForNegatives(numbers: string[]): string[] {
+    if (isNaN(parseInt(numbers[numbers.length - 1]))) {
+      numbers.pop();
+    }
+    return [];
+  }
+
+  private cleanNumbersArray(numbers: string[]): string[] {
+    if (numbers.length === 0) {
+      return [];
+    }
+    if (isNaN(parseInt(numbers[numbers.length - 1]))) {
+      numbers.pop();
+      return this.cleanNumbersArray(numbers);
+    }
+    const lastElement: string = numbers.pop();
+    return this.cleanNumbersArray(numbers).push(lastElement);
   }
 
   private extractNumbers(expression: string): string[] {

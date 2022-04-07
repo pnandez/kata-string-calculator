@@ -9,6 +9,7 @@ import { StringCalculator } from '../src/Calculator';
  * calculator.calculate('a') => 0
  * calculator.calculate('2,3,a,4') =>9
  * check calculator with escaped characters
+ * calculator.calculate('1,3,5,-1,2,-5') => Exception negative numbers not allowed: -1, -5
  */
 
 describe('String calculator should ', () => {
@@ -48,5 +49,16 @@ describe('String calculator should ', () => {
   it('ignore letters', () => {
     expect(calculator.calculate('2,3,a,4')).toBe(9);
     expect(calculator.calculate('//ç\n2ç3ç5çaç3')).toBe(13);
+  });
+
+  it('accept characters that need to be escaped as delimiters', () => {
+    expect(calculator.calculate('//*\n2*3')).toBe(5);
+    expect(calculator.calculate('//|\n2|3|5|3')).toBe(13);
+  });
+
+  it('should not accept negative numbers', () => {
+    expect(() => {
+      calculator.calculate('1,2,-3,4,-5');
+    }).toThrow();
   });
 });
