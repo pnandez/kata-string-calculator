@@ -73,6 +73,7 @@ describe('String calculator should ', () => {
     expect(calculator.calculate('//[çç]\n1çç2çç3')).toBe(6);
     expect(calculator.calculate('//[||||||]\n1|||||2|||||3')).toBe(6);
     expect(calculator.calculate('//[--]\n1--2--3')).toBe(6);
+    expect(calculator.calculate('//[;;][::]\n1;;;2::5')).toBe(8)
   });
 
   it('accept more than one delimiter', () => {
