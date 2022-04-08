@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export class StringCalculator {
   calculate(expression: string): number {
     const numbers: string[] = this.extractNumbers(expression);
@@ -44,15 +45,18 @@ export class StringCalculator {
     if (rawdelimeterExpression.length === 1) {
       return rawdelimeterExpression;
     }
+    console.log('PARSEDELIMITER ' +rawdelimeterExpression);
     const delimeters: string[] = rawdelimeterExpression.match(/\[.*?\]/g);
+    console.log('PARSEDELIMITer 2 =' + delimeters);
     return this.parseMultipleDelimeters(delimeters);
   }
 
   private parseMultipleDelimeters(delimeters: string[]): string {
     if (delimeters.length === 1) {
+      
       return delimeters[0].slice(1, -1);
     }
-    const parseddelimeter = delimeters.shift().slice(1, -1);
+    const parseddelimeter = delimeters?.shift()?.slice(1, -1);
     return parseddelimeter + '|' + this.parseMultipleDelimeters(delimeters);
   }
 
@@ -60,9 +64,9 @@ export class StringCalculator {
     if (numbers.length === 0) {
       return 0;
     }
+    console.log(numbers);
     if (isNaN(parseInt(numbers[numbers.length - 1]))) {
-      numbers.pop();
-      return this.sum(numbers);
+      throw new Error('Wrong formatted string');
     }
     const lastElement: string = numbers.pop();
     if (parseInt(lastElement) > 1000) {

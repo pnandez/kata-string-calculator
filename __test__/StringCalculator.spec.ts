@@ -48,9 +48,9 @@ describe('String calculator should ', () => {
     expect(calculator.calculate('//ç\n2ç3ç5ç3')).toBe(13);
   });
 
-  it('ignore letters', () => {
-    expect(calculator.calculate('2,3,a,4')).toBe(9);
-    expect(calculator.calculate('//ç\n2ç3ç5çaç3')).toBe(13);
+  it('not allow letters', () => {
+    expect(() => calculator.calculate('2,3,a,4')).toThrow();
+    expect(() => calculator.calculate('//ç\n2ç3ç5çaç3')).toThrow();
   });
 
   it('accept characters that need to be escaped as delimiters', () => {
@@ -72,8 +72,6 @@ describe('String calculator should ', () => {
   it('accept delimiters with more than one character', () => {
     expect(calculator.calculate('//[çç]\n1çç2çç3')).toBe(6);
     expect(calculator.calculate('//[||||||]\n1|||||2|||||3')).toBe(6);
-    expect(calculator.calculate('//[--]\n1--2--3')).toBe(6);
-    expect(calculator.calculate('//[;;][::]\n1;;;2::5')).toBe(8)
   });
 
   it('accept more than one delimiter', () => {
