@@ -1,11 +1,6 @@
-# TypeScript Boilerplate for Katas
+# Kata String Calculator
+## Explanation
+You will create a method that adds numbers given in a string separated by a determined separator. Initially this separator will be the character ','. Afterwords you will iterate over the problem adding more complexity
 
-You can use it for Coding-Dojos, Katas or **reference** to build a new project.
-
-This boilerplate include:
-
-- 💬 TypeScript 3.6
-- 📙 Babel 7
-- ✅ Jest 24
-- 💅 Prettier & TSLint
-# kata-string-calculator
+## Link to explanation
+https://osherove.com/tdd-kata-1
